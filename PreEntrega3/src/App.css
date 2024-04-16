@@ -1,9 +1,16 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  gap: 2rem;
+  max-width: 1500px;
 }
+
+#footer {
+  margin-top: auto;
+}
+
 
 .logo {
   height: 6em;
