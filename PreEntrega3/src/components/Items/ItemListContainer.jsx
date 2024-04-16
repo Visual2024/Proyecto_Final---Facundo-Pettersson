@@ -1,21 +1,38 @@
 import { useEffect, useState } from "react";
-import date from "../../data/date.json";
-import { ItemList } from "./ItemList";
-
+import ItemList from "./ItemList";
+import { useParams } from "react-router-dom";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../firebase/config";
 
 export const ItemListContainer = () => {
-  const [item, setItem] = useState([]);
 
-  useEffect(() => {
-    setItem(date);
-  }, []);
+    const [productos, setProductos] = useState([]);
 
+    const [titulo, setTitulo] = useState("Productos");
+
+    const categoria = useParams().categoria;
+
+    useEffect(() => {
+
+      const productosRef = collection(db, "productos");
+      const q = categoria ? query(productosRef, where("categoria", "==", categoria)) : productosRef;
+
+      getDocs(q)
+        .then((resp) => {
+
+          setProductos(
+            resp.docs.map((doc) => {
+              return { ...doc.data(), id: doc.id }
+            })
+          )
+        })
+        
+    }, [categoria])
+    
+    
   return (
     <div>
-      <div className="w-100 text-[2rem] text-center my-5 font-bold">
-        <h1>Bienvenido a la tienda virtual</h1>
-      </div>
-      <ItemList item={item}  />
+        <ItemList productos={productos} titulo={titulo} />
     </div>
-  );
-};
+  )
+}

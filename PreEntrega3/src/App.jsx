@@ -5,16 +5,16 @@ import { Footer } from "./layout/Footer/Footer";
 import {Productos, Contacto, Nosotros} from "./Hook/useExport"
 import { ItemDetailsContainer } from "./components/ItemDetails/ItemDetailsContainer";
 import { ItemListContainer } from "./components/Items/ItemListContainer";
+import { CartProvider } from "./Context/CartContext";
+import { Cart } from "./page/Cart";
 import "./App.css"
-import { CartCotext } from "./Context/CartContext";
-import { useState } from "react";
 
 function App() {
 
-  const [carrito, setCarrito] = useState([])
+
 
   return (
-    <CartCotext.Provider value={{carrito, setCarrito}}>
+    <CartProvider >
     <BrowserRouter>
       <Navbar />
       <Routes>
@@ -27,10 +27,11 @@ function App() {
         <Route path="/categoria/zapatilla" element={<ItemDetailsContainer />} />
         <Route path="/categoria/camiseta" element={<ItemDetailsContainer />} />
         <Route path="/categoria/pantalon" element={<ItemDetailsContainer />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
       <Footer />
     </BrowserRouter>
-    </CartCotext.Provider>
+    </CartProvider>
   );
 }
 

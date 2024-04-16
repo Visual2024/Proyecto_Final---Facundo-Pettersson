@@ -1,18 +1,17 @@
-import { Item } from "./Item";
+import Item from "./Item";
+import { toCapital } from "../helpers/toCapital";
 
 
-export const ItemList = ({item}) => {
-  
+export const ItemList = ( {productos, titulo} ) => {
+
   return (
-    <div  className="flex flex-row flex-wrap gap-10 justify-center min-w-[1087px]: ml-[1rem]">
-    {item.length > 0 &&
-      item.map((i) => {
-       return (
-        <div className=" ">
-          <Item i={i}/>
+    <div className="container">
+        <h2 className="main-title">{toCapital(titulo)}</h2>
+
+        <div className="productos">
+            { productos.map((prod) => <Item producto={prod} key={prod.id} />) }
         </div>
-       )
-      })}
-  </div>
+    </div>
   )
 }
+

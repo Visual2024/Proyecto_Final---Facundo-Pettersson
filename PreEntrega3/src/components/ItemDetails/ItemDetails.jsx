@@ -1,25 +1,44 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { toCapital } from "../../helpers/toCapital";
 import { ItemCount } from "../ItemCount/ItemCount";
-import { CartCotext } from "../../Context/CartContext";
+import { CartContext } from "../../Context/CartContext";
 
 export const ItemDetail = ({ product }) => {
+  const { carrito, agregarAlCarrito } = useContext(CartContext);
+  console.log(carrito);
 
-    const user = useContext(CartCotext);
-  console.log(user);
+  const [cantidad, setCantidad] = useState(1);
 
-    const { title, imagen, precio, categoria } = product;
+  const handleRestar = () => {
+    cantidad > 1 && setCantidad(cantidad - 1);
+  };
 
-    
+  const handleSumar = () => {
+    cantidad < product.stock && setCantidad(cantidad + 1);
+  };
 
-    return (
-      <div className="flex flex-row mt-2 w-[60%] h-[65%] border-solid  ">
-          <img src={imagen} alt={title} className=" object-contain w-[50%]" />
-        <div className="ml-6 w-[80%]">
-          <h1 className="font-bold text-[2rem] w-auto">{title}</h1>
-          <p className="font-bold text-[2rem] mt-1 w-[80%]">Precio: ${precio}</p>
-          <p className="font-bold text-[1rem] w-auto">{categoria.nombre}</p>
-          <ItemCount product={product}/>
+  return (
+    <div className="flex flex-col w-full justify-center mt-3 content-center">
+      <div className="w-[60%] ml-10 flex flex-row  justify-center">
+        <img src={product.imagen} alt={product.title} className="w-[40%]" />
+        <div className="flex flex-col w-[100%] h-[50%] ml-10">
+          <div>
+            <h3 className="font-bold text-[2rem]">{product.title}</h3>
+            <p className="font-bold">{toCapital(product.categoria)}</p>
+            <p className="font-bold text-[2.5rem]">${product.precio}</p>
+          </div>
+          <div>
+            <ItemCount
+              cantidad={cantidad}
+              handleSumar={handleSumar}
+              handleRestar={handleRestar}
+              handleAgregar={() => {
+                agregarAlCarrito(item, cantidad);
+              }}
+            />
+          </div>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
+};

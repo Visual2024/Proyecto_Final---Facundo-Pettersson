@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Cart } from "../../components/Cart/Cart";
+import { CartWidget } from "../../components/Cart/CartWidget";
 
 export const Navbar = () => {
   const [showCategorias, setShowCategorias] = useState(false);
@@ -32,28 +32,13 @@ export const Navbar = () => {
               {showCategorias && (
                 <ul className="absolute bg-teal-500 rounded-e-sm text-white w-[7%] flex flex-col items-start outline-none  p-2">
                   <li className="hover:bg-red-500  max-sm:text-xs pl-1 p-2 rounded-2xl">
-                    <Link
-                      to="/categorias/botines"
-                      
-                    >
-                      Botines
-                    </Link>
+                    <Link to="/categorias/botines">Botines</Link>
                   </li>
                   <li className="hover:bg-red-500  pl-1 p-2 rounded-2xl text-white">
-                    <Link
-                      to="/categorias/camisetas"
-                      
-                    >
-                      Camisetas
-                    </Link>
+                    <Link to="/categorias/camisetas">Camisetas</Link>
                   </li>
                   <li className="hover:bg-red-500  pl-1 p-2 rounded-2xl text-white">
-                    <Link
-                      to="/categorias/pantalones"
-                      
-                    >
-                      Pantalones
-                    </Link>
+                    <Link to="/categorias/pantalones">Pantalones</Link>
                   </li>
                 </ul>
               )}
@@ -65,7 +50,9 @@ export const Navbar = () => {
           </ul>
         </div>
         <div className="mr-4">
-          <Cart />
+          <Link to={"/cart"}>
+            <CartWidget />
+          </Link>
         </div>
       </nav>
     </header>

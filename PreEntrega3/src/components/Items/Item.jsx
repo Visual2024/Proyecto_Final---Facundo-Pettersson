@@ -1,6 +1,10 @@
 import {Link} from 'react-router-dom'
+import React from 'react'
+import { toCapital } from '../helpers/toCapital'
 
 export const Item = ({ i }) => {
+
+  
   return (
     <div className=''>
       <img src={i.imagen} alt={i.title} className='w-[15rem]'/>
